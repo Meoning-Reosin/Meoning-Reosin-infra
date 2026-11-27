@@ -83,15 +83,15 @@
 
 | 대상 리소스 | 역할 | 받는 쪽 | 이유 |
 |---|---|---|---|
-| `acrstorywalk` | AcrPull | `id-meoningreosin-api` | ACA가 이미지를 가져옴 |
-| `acrstorywalk` | AcrPush | `gh-meoningreosin-deploy` | GitHub Actions가 이미지를 올림 |
+| `acrmeoningreosin` | AcrPull | `id-meoningreosin-api` | ACA가 이미지를 가져옴 | 관리자가 할당(11/27) ✅
+| `acrmeoningreosin` | AcrPush | `gh-meoningreosin-deploy` | GitHub Actions가 이미지를 올림 |
 | 리소스 그룹 | Contributor | `gh-meoningreosin-deploy` | GitHub Actions가 ACA를 업데이트 |
-| `ststorywalk` | Storage Blob Data Contributor | AI 담당 | curated 사진 업로드 |
-| `ststorywalk` | Storage Blob Data Reader | 적재 스크립트 실행자 | 사진 읽기 |
+| `stmeoningreosin` | Storage Blob Data Contributor | AI 담당 | curated 사진 업로드 |
+| `stmeoningreosin` | Storage Blob Data Reader | 적재 스크립트 실행자 | 사진 읽기 |
 
 ---
 
-## ⚙️ Container App 설정
+## Container App 설정
 
 ### 시크릿 (이름만 기록, 값은 ACA에만 저장)
 
@@ -163,6 +163,15 @@
 
 | 날짜 | 내용 | 작업자 |
 |---|---|---|
-| 11/25 | 리소스 그룹 생성 | infra |
-| 11/27 | 예산 알림 설정, Vision 생성 | infra |
-| 11/27 | Log Analytics 생성 | infra |
+| 11/25 | 리소스 그룹 생성 (`rg-meoningreosin-dev`, West US 2) | infra |
+| 11/26 | Azure AI Vision 생성 (Korea Central, S1) | ai |
+| 11/27 | 예산 생성 및 알림 설정 (100만원, 실제 30·50·80·100%, 예측 100%) | infra |
+| 11/27 | GitHub 조직 설정 (멤버 권한 Write, 보안 기능 일괄 적용, 라벨 8종) | infra |
+| 11/27 | `.github` 레포 생성 (PR·이슈 템플릿, 팀 규칙 README) | infra |
+| 11/27 | GitHub Projects 보드 생성 (Auto-add: backend) | infra |
+| 11/27 | Log Analytics 작업 영역 생성 (`log-storywalk`, 보존 30일, 일일 한도 1 GB) | infra |
+| 11/27 | 사용자 할당 관리 ID 생성 (`id-meoningreosin-api`) | infra |
+| 11/27 | Container Registry 생성 (`acrstorywalk`, Basic) | infra |
+| 11/27 | AcrPull 할당 요청 → 관리자가 내 계정(구독 범위)에 부여 → 관리 ID 대상으로 재요청 | infra |
+| 11/27 | AcrPull 역할 할당 완료 (`acrstorywalk` → 관리 ID `id-meoningreosin-api`, 관리자 할당) | infra |
+
