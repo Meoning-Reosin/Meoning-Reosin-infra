@@ -47,7 +47,7 @@
 | 1 | `cv-5-project` | Azure AI Vision | Korea Central | S1 | 사진 → 벡터 | 11/27 | ✅ |
 | 2 | `log-meoningreosin` | Log Analytics 작업 영역 | West US 2 | 보존 30일, 일일 한도 1 GB | ACA 로그 | 11/27 | ✅ |
 | 3 | `id-meoningreosin-api` | 사용자 할당 관리 ID | West US 2 | - | ACA의 접근 권한(신분증) | | ✅ |
-| 4 | `acrstorywalk` | Container Registry | West US 2 | Basic | Docker 이미지 보관 | | ⬜ |
+| 4 | `acrmeoningreosin` | Container Registry | West US 2 | Basic | Docker 이미지 보관 | | ✅ |
 | 5 | `cae-storywalk` | Container Apps 환경 | West US 2 | Consumption | 앱 실행 공간 | | ⬜ |
 | 6 | `ca-storywalk-api` | Container App | West US 2 | 0.5 vCPU / 1 GiB, 0~2대 | 백엔드 서버 | | ⬜ |
 | 7 | `psql-storywalk` | PostgreSQL Flexible Server | West US 2 | B1ms, 32 GiB, PG16 | 데이터베이스 | | ⬜ |
