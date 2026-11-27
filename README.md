@@ -70,7 +70,7 @@
 | 4 | `acrmeoningreosin` | Container Registry | West US 2 | Basic | Docker 이미지 보관 | | ✅ |
 | 5 | `cae-meoningreosin-dev` | Container Apps 환경 | West US 2 | Consumption | 앱 실행 공간 | | ✅ |
 | 6 | `ca-meoningreosin-api` | Container App | West US 2 | 0.5 vCPU / 1 GiB, 0~2대 | 백엔드 서버 | | ✅ |
-| 7 | `psql-meoningreosin` | PostgreSQL Flexible Server | West US 2 | B1ms, 32 GiB, PG16 | 데이터베이스 | | ✅ |
+| 7 | `psql-meoningreosin-dev` | PostgreSQL Flexible Server | West US 2 | B1ms, 32 GiB, PG16 | 데이터베이스 | | ✅ |
 | 8 | `stmeoningreosindev` | Storage 계정 | West US 2 | StorageV2, LRS, Hot | 원본·사진 파일 | | ✅ |
 | 9 | `aoai-meoningreosin` | Azure OpenAI | West US 2 | S0 | 챗봇, 추천 문구, 임베딩 | | ✅ |
 
