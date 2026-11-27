@@ -37,6 +37,26 @@
 | 이름 규칙 | `종류약어-meoningreosin` (예: `log-meoningreosin`, `id-meoingreosin-api`) |
 | 공통 태그 | `project=meoingreosin`, `env=dev`, `owner=infra` |
 
+### 현재 상태
+
+| 항목 | 현재 값 | 백엔드 배포 시 변경 |
+|---|---|---|
+| 이미지 | `mcr.microsoft.com/k8se/quickstart` (샘플) | `acrstorywalk.azurecr.io/storywalk-api:v0` |
+| 대상 포트 | 80 | **8000** |
+| CPU / 메모리 | 0.25 / 0.5 Gi | **0.5 / 1 Gi** |
+| 수신 | 외부, 어디서나 허용 | 그대로 |
+| 크기 조정 | 최소 0 / 최대 2 | 그대로 (시연 기간 최소 1) |
+| 관리 ID | `id-meoningreosin-api` (사용자 할당) | 그대로 |
+| 레지스트리 인증 | 관리 ID → `acrstorywalk` | 그대로 |
+| 상태 프로브 | 없음 | `/health` (포트 8000) |
+| 시크릿 | 없음 | `database-url` 등 추가 |
+
+| 구분 | 주소 |
+|---|---|
+| 백엔드 (ACA) | `https://ca-storywalk-api.<자동 생성 문자](https://ca-meoningreosin-api.bluestone-a0ea8c88.westus2.azurecontainerapps.io)>.westus2.azurecontainerapps.io` |
+| 상태 확인 | 위 주소 + `/health` (백엔드 배포 후) |
+| 프론트 (Vercel) | 예정 |
+| ACR 로그인 서버 | `acrstorywalk.azurecr.io` |
 ---
 
 ## Azure 리소스 목록
@@ -48,11 +68,11 @@
 | 2 | `log-meoningreosin` | Log Analytics 작업 영역 | West US 2 | 보존 30일, 일일 한도 1 GB | ACA 로그 | 11/27 | ✅ |
 | 3 | `id-meoningreosin-api` | 사용자 할당 관리 ID | West US 2 | - | ACA의 접근 권한(신분증) | | ✅ |
 | 4 | `acrmeoningreosin` | Container Registry | West US 2 | Basic | Docker 이미지 보관 | | ✅ |
-| 5 | `cae-storywalk` | Container Apps 환경 | West US 2 | Consumption | 앱 실행 공간 | | ⬜ |
-| 6 | `ca-storywalk-api` | Container App | West US 2 | 0.5 vCPU / 1 GiB, 0~2대 | 백엔드 서버 | | ⬜ |
-| 7 | `psql-storywalk` | PostgreSQL Flexible Server | West US 2 | B1ms, 32 GiB, PG16 | 데이터베이스 | | ⬜ |
-| 8 | `ststorywalk` | Storage 계정 | West US 2 | StorageV2, LRS, Hot | 원본·사진 파일 | | ⬜ |
-| 9 | `aoai-storywalk` | Azure OpenAI | West US 2 | S0 | 챗봇, 추천 문구, 임베딩 | | ⬜ |
+| 5 | `cae-meoningreosin-dev` | Container Apps 환경 | West US 2 | Consumption | 앱 실행 공간 | | ✅ |
+| 6 | `ca-meoningreosin-api` | Container App | West US 2 | 0.5 vCPU / 1 GiB, 0~2대 | 백엔드 서버 | | ✅ |
+| 7 | `psql-meoningreosin` | PostgreSQL Flexible Server | West US 2 | B1ms, 32 GiB, PG16 | 데이터베이스 | | ✅ |
+| 8 | `stmeoningreosindev` | Storage 계정 | West US 2 | StorageV2, LRS, Hot | 원본·사진 파일 | | ✅ |
+| 9 | `aoai-meoningreosin` | Azure OpenAI | West US 2 | S0 | 챗봇, 추천 문구, 임베딩 | | ✅ |
 
 상태: ✅ 완료 · 🔄 진행 중 · ⬜ 예정 · 🗑️ 삭제
 
@@ -72,8 +92,8 @@
 | PostgreSQL | 계정 | `meoningreosin_app` | 앱 전용 |
 | PostgreSQL | 계정 | (읽기 전용 계정) | 팀원 조회용 |
 | PostgreSQL | 확장 | `vector` | pgvector |
-| Storage | 컨테이너 | `raw` | 받은 원본 그대로 |
-| Storage | 컨테이너 | `curated` | 장소별 정답 사진 (`place_id` 폴더) |
+| Storage | 컨테이너 | `raw` | 받은 원본 그대로 | ✅
+| Storage | 컨테이너 | `curated` | 장소별 정답 사진 (`place_id` 폴더) | ✅
 | Azure OpenAI | 모델 배포 | `emb-small` | text-embedding-3-small |
 | Azure OpenAI | 모델 배포 | `chat-mini` | GPT mini |
 
@@ -86,8 +106,8 @@
 | `acrmeoningreosin` | AcrPull | `id-meoningreosin-api` | ACA가 이미지를 가져옴 | 관리자가 할당(11/27) ✅
 | `acrmeoningreosin` | AcrPush | `gh-meoningreosin-deploy` | GitHub Actions가 이미지를 올림 |
 | 리소스 그룹 | Contributor | `gh-meoningreosin-deploy` | GitHub Actions가 ACA를 업데이트 |
-| `stmeoningreosin` | Storage Blob Data Contributor | AI 담당 | curated 사진 업로드 |
-| `stmeoningreosin` | Storage Blob Data Reader | 적재 스크립트 실행자 | 사진 읽기 |
+| `stmeoningreosindev` | Storage Blob Data Contributor | AI 담당 | curated 사진 업로드 |
+| `stmeoningreosindev` | Storage Blob Data Reader | 적재 스크립트 실행자 | 사진 읽기 |
 
 ---
 
