@@ -41,22 +41,22 @@
 
 | 항목 | 현재 값 | 백엔드 배포 시 변경 |
 |---|---|---|
-| 이미지 | `mcr.microsoft.com/k8se/quickstart` (샘플) | `acrstorywalk.azurecr.io/storywalk-api:v0` |
+| 이미지 | `mcr.microsoft.com/k8se/quickstart` (샘플) | `acrmeoningreosin.azurecr.io/storywalk-api:v0` |
 | 대상 포트 | 80 | **8000** |
 | CPU / 메모리 | 0.25 / 0.5 Gi | **0.5 / 1 Gi** |
 | 수신 | 외부, 어디서나 허용 | 그대로 |
 | 크기 조정 | 최소 0 / 최대 2 | 그대로 (시연 기간 최소 1) |
 | 관리 ID | `id-meoningreosin-api` (사용자 할당) | 그대로 |
-| 레지스트리 인증 | 관리 ID → `acrstorywalk` | 그대로 |
+| 레지스트리 인증 | 관리 ID → `acrmeoningreosin` | 그대로 |
 | 상태 프로브 | 없음 | `/health` (포트 8000) |
 | 시크릿 | 없음 | `database-url` 등 추가 |
 
 | 구분 | 주소 |
 |---|---|
-| 백엔드 (ACA) | `https://ca-storywalk-api.<자동 생성 문자](https://ca-meoningreosin-api.bluestone-a0ea8c88.westus2.azurecontainerapps.io)>.westus2.azurecontainerapps.io` |
+| 백엔드 (ACA) | `https://ca-meoningreosin-api.<자동 생성 문자](https://ca-meoningreosin-api.bluestone-a0ea8c88.westus2.azurecontainerapps.io)>.westus2.azurecontainerapps.io` |
 | 상태 확인 | 위 주소 + `/health` (백엔드 배포 후) |
 | 프론트 (Vercel) | 예정 |
-| ACR 로그인 서버 | `acrstorywalk.azurecr.io` |
+| ACR 로그인 서버 | `acrmeonigreosin.azurecr.io` |
 ---
 
 ## Azure 리소스 목록
@@ -145,7 +145,7 @@
 | 백엔드 (ACA) | `https://(ACA 주소)` |
 | 상태 확인 | `https://(ACA 주소)/health` |
 | 프론트 (Vercel) | `https://(Vercel 주소)` |
-| ACR 로그인 서버 | `acrstorywalk.azurecr.io` |
+| ACR 로그인 서버 | `acrmeoningreosin.azurecr.io` |
 
 ---
 
@@ -189,9 +189,9 @@
 | 11/27 | GitHub 조직 설정 (멤버 권한 Write, 보안 기능 일괄 적용, 라벨 8종) | infra |
 | 11/27 | `.github` 레포 생성 (PR·이슈 템플릿, 팀 규칙 README) | infra |
 | 11/27 | GitHub Projects 보드 생성 (Auto-add: backend) | infra |
-| 11/27 | Log Analytics 작업 영역 생성 (`log-storywalk`, 보존 30일, 일일 한도 1 GB) | infra |
+| 11/27 | Log Analytics 작업 영역 생성 (`log-meoningreosin`, 보존 30일, 일일 한도 1 GB) | infra |
 | 11/27 | 사용자 할당 관리 ID 생성 (`id-meoningreosin-api`) | infra |
-| 11/27 | Container Registry 생성 (`acrstorywalk`, Basic) | infra |
+| 11/27 | Container Registry 생성 (`acrmeoningreosin`, Basic) | infra |
 | 11/27 | AcrPull 할당 요청 → 관리자가 내 계정(구독 범위)에 부여 → 관리 ID 대상으로 재요청 | infra |
-| 11/27 | AcrPull 역할 할당 완료 (`acrstorywalk` → 관리 ID `id-meoningreosin-api`, 관리자 할당) | infra |
+| 11/27 | AcrPull 역할 할당 완료 (`acrmeoningreosin` → 관리 ID `id-meoningreosin-api`, 관리자 할당) | infra |
 
